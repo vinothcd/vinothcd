@@ -1,0 +1,153 @@
+
+		1.INSERT INTO MANY
+> db.employee.insert({name:"vignesh",age:39,address:"trichy"},{name:"nameen",age:29,address:"chennai"})
+WriteResult({ "nInserted" : 1 })
+
+> db.employee.find().pretty()
+{
+        "_id" : ObjectId("61c4ac15ae9aed3cc84c40c0"),
+        "name" : "ram",
+        "age" : 20,
+        "address" : "chennai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1c"),
+        "name" : "kumar",
+        "age" : 45,
+        "address" : "madurai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1d"),
+        "name" : "rajesh",
+        "age" : 30,
+        "address" : "trichy"
+}
+{
+        "_id" : ObjectId("61c51d3cd0b4748e1ac79307"),
+        "name" : "vignesh",
+        "age" : 39,
+        "address" : "trichy"
+}
+
+
+		UPDATE
+> db.employee.update({name:"vignesh"},{$set:{address:"namakal"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.employee.findOneAndUpdate({name:"rajesh"},{$set:{age:50}})
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1d"),
+        "name" : "rajesh",
+        "age" : 30,
+        "address" : "trichy"
+}
+
+> db.employee.find().pretty()
+{
+        "_id" : ObjectId("61c4ac15ae9aed3cc84c40c0"),
+        "name" : "ram",
+        "age" : 20,
+        "address" : "chennai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1c"),
+        "name" : "kumar",
+        "age" : 45,
+        "address" : "madurai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1d"),
+        "name" : "rajesh",
+        "age" : 50,
+        "address" : "trichy"
+}
+{
+        "_id" : ObjectId("61c51d3cd0b4748e1ac79307"),
+        "name" : "vignesh",
+        "age" : 39,
+        "address" : "namakal"
+}
+
+	
+		RENAME
+> db.employee.update({name:"rajesh"},{$rename:{"age":"yourage"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.employee.find().pretty()
+{
+        "_id" : ObjectId("61c4ac15ae9aed3cc84c40c0"),
+        "name" : "ram",
+        "age" : 20,
+        "address" : "chennai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1c"),
+        "name" : "kumar",
+        "age" : 45,
+        "address" : "madurai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1d"),
+        "name" : "rajesh",
+        "address" : "trichy",
+        "yourage" : 50
+}
+{
+        "_id" : ObjectId("61c51d3cd0b4748e1ac79307"),
+        "name" : "vignesh",
+        "age" : 39,
+        "address" : "namakal"
+}
+
+
+		REMOVE
+
+> db.employee.remove({name:"vignesh"})
+WriteResult({ "nRemoved" : 1 })
+> db.employee.find().pretty()
+{
+        "_id" : ObjectId("61c4ac15ae9aed3cc84c40c0"),
+        "name" : "ram",
+        "age" : 20,
+        "address" : "chennai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1c"),
+        "name" : "kumar",
+        "age" : 45,
+        "address" : "madurai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1d"),
+        "name" : "rajesh",
+        "address" : "trichy",
+        "yourage" : 50
+}
+
+
+			OR OPERATOR
+> db.employee.find({$or:[{name:"rajesh"},{name:"ram"}]}).pretty()
+{
+        "_id" : ObjectId("61c4ac15ae9aed3cc84c40c0"),
+        "name" : "ram",
+        "age" : 20,
+        "address" : "chennai"
+}
+{
+        "_id" : ObjectId("61c51bd7e515466546a26f1d"),
+        "name" : "rajesh",
+        "address" : "trichy",
+        "yourage" : 50
+}
+
+
+		
+			UPSERT
+> db.emplouee.update({name:"rajesh"},{name:"rajesh",gender:"male"},{upsert:true})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("61c52bf117b16acde12520c3")
+})
+
+
